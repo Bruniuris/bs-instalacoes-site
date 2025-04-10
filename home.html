@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>B&S Instalações</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #001f3f;
+      font-family: 'Times New Roman', Times, serif;
+      color: yellow;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .topo {
+      margin-top: 30px;
+      font-size: 2.8em;
+      letter-spacing: 2px;
+    }
+
+    .servicos {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin: 60px 0;
+      flex-direction: row;
+    }
+
+    .servico {
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .servico img {
+      width: 100%;
+      height: auto;
+      border: 2px solid yellow;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .titulo-servico {
+      font-size: 1.4em;
+      font-weight: bold;
+      border-bottom: 1px solid yellow;
+      padding-bottom: 5px;
+      line-height: 1.2em;
+    }
+
+    .destaque-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .destaque {
+      width: 400px;
+    }
+
+    .destaque img {
+      width: 100%;
+    }
+
+    .descricao {
+      margin-top: 20px;
+      font-size: 1.2em;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .miniaturas {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 200px;
+    }
+
+    .miniatura {
+      width: 100px;
+      cursor: pointer;
+    }
+
+    .miniatura img {
+      width: 100%;
+      border: 2px solid yellow;
+      border-radius: 6px;
+    }
+
+    .botao-voltar {
+      margin-top: 20px;
+      font-size: 1em;
+      padding: 10px 20px;
+      background-color: yellow;
+      color: #001f3f;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-bottom: 20px;
+      font-size: 1.2em;
+    }
+
+    footer .nome-empresa {
+      font-size: 1.4em;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topo">B&amp;S Instalações</div>
+
+  <div class="servicos" id="servicos">
+    <div class="servico" onclick="mostrarDestaque('Rastreamento Veicular', 'rastreamento.jpg')">
+      <div class="titulo-servico">Rastreamento<br>Veicular</div>
+      <img src="rastreamento.jpg" alt="Imagem de rastreamento veicular">
+    </div>
+    <div class="servico" onclick="mostrarDestaque('Segurança Eletrônica', 'seguranca.jpg')">
+      <div class="titulo-servico">Segurança<br>Eletrônica</div>
+      <img src="seguranca.jpg" alt="Imagem de segurança eletrônica">
+    </div>
+    <div class="servico" onclick="mostrarDestaque('Elétrica Residencial', 'residencial.jpg')">
+      <div class="titulo-servico">Elétrica<br>Residencial</div>
+      <img src="residencial.jpg" alt="Imagem elétrica residencial">
+    </div>
+    <div class="servico" onclick="mostrarDestaque('Automação Residencial', 'automacao.jpg')">
+      <div class="titulo-servico">Automação<br>Residencial</div>
+      <img src="automacao.jpg" alt="Imagem de automação residencial">
+    </div>
+  </div>
+
+  <div id="destaque-view" style="display: none;">
+    <div class="destaque-container">
+      <div class="destaque">
+        <h2 id="titulo-destaque"></h2>
+        <img id="img-destaque" src="" alt="Imagem destaque">
+        <div class="descricao" id="descricao-destaque">
+          Este é um texto temporário de descrição com 5 linhas para simular o conteúdo real que será inserido futuramente.  
+          Ele descreve o serviço clicado de forma objetiva e informativa.  
+          Aqui você poderá falar dos benefícios, como funciona e sua importância.  
+          É possível destacar diferenciais e pontos fortes do serviço.  
+          O texto será substituído por um conteúdo final e completo.
+        </div>
+        <button class="botao-voltar" onclick="voltar()">Voltar</button>
+      </div>
+
+      <div class="miniaturas" id="miniaturas"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="nome-empresa">B&amp;S Instalações</div>
+    <div>CNPJ: 33.165.156/0001-81</div>
+  </footer>
+
+  <script>
+    const servicos = [
+      { titulo: 'Rastreamento Veicular', imagem: 'rastreamento.jpg' },
+      { titulo: 'Segurança Eletrônica', imagem: 'seguranca.jpg' },
+      { titulo: 'Elétrica Residencial', imagem: 'residencial.jpg' },
+      { titulo: 'Automação Residencial', imagem: 'automacao.jpg' }
+    ];
+
+    function mostrarDestaque(titulo, imagem) {
+      document.getElementById("servicos").style.display = "none";
+      document.getElementById("destaque-view").style.display = "block";
+      document.getElementById("titulo-destaque").innerHTML = titulo;
+      document.getElementById("img-destaque").src = imagem;
+
+      const miniaturas = document.getElementById("miniaturas");
+      miniaturas.innerHTML = '';
+
+      servicos.forEach(s => {
+        if (s.titulo !== titulo) {
+          const div = document.createElement('div');
+          div.className = 'miniatura';
+          div.innerHTML = `
+            <div class="titulo-servico" style="font-size: 0.9em;">${s.titulo}</div>
+            <img src="${s.imagem}" alt="${s.titulo}" onclick="mostrarDestaque('${s.titulo}', '${s.imagem}')">
+          `;
+          miniaturas.appendChild(div);
+        }
+      });
+    }
+
+    function voltar() {
+      document.getElementById("destaque-view").style.display = "none";
+      document.getElementById("servicos").style.display = "flex";
+    }
+  </script>
+</body>
+</html>
